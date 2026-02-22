@@ -4,7 +4,7 @@ Welcome! This repository contains the code for an accessible, hardware-integrate
 
 The system acts as a bridge between the physical world and digital accessibility. It uses a webcam to "see" text, Python to "read" and process it, and an Arduino paired with servos to physically render the text into Braille, alongside audio feedback.
 
-
+---
 
 ## 🧠 The Concept: Brain and Muscle
 
@@ -13,7 +13,7 @@ This project is split into two main parts that talk to each other constantly:
 1. **The Brain (Python on a Laptop):** Handles the heavy lifting. It takes the picture, cleans it up, extracts the text using Optical Character Recognition (OCR), speaks out loud, and safely coordinates what happens next.
 2. **The Muscle (Arduino Uno & Servos):** Listens for commands from the laptop. It takes specific letters, translates them into 6-dot Braille patterns, and physically moves the servos to raise or lower the pins.
 
-
+---
 
 ## 🛠️ Measures to Take Before Running
 
@@ -30,10 +30,10 @@ To make this code work smoothly, you need to set up both the physical hardware a
 
 You will need Python installed, along with a few specific libraries. Run this in your terminal:
 
-
+```bash
 pip install opencv-python pytesseract pyttsx3 pyserial numpy
 
-
+```
 
 ### 3. The "Gotchas" (Crucial Code Adjustments)
 
@@ -43,7 +43,7 @@ Before you hit run, open the Python script and check these three things in the `
 * **The COM Port:** Find out which port your Arduino is plugged into (e.g., `COM3` on Windows or `/dev/ttyUSB0` on Mac/Linux) and update the `COM_PORT` variable.
 * **The Camera Index:** If `CAMERA_INDEX = 0` opens your laptop's built-in webcam instead of your downward-facing document camera, change it to `1` or `2`.
 
-
+---
 
 ## 📸 Under the Hood: Image Preprocessing
 
@@ -53,7 +53,7 @@ Cameras capture a lot of noise, shadows, and bad lighting. If we feed a raw imag
 2. **Otsu's Thresholding:** This is the magic step. The code automatically calculates the perfect contrast point to force the background to turn pure white and the text to turn pure black, erasing shadows and making the letters pop.
 3. **Space Stripping:** Once the text is extracted, the code removes weird line breaks and extra spaces so the audio engine doesn't sound like it's stuttering.
 
-
+---
 
 ## 🎮 How to Use the System (The Controls)
 
@@ -64,3 +64,6 @@ The system is designed with a strict "State Machine" to prevent errors, meaning 
 * `S` **(Speak Mode):** Bypasses the Arduino completely and just reads the captured text out loud as normal sentences.
 * `X` **(Emergency Stop / Reset):** The ultimate override. No matter what the system is doing, pressing `X` instantly stops the audio, flushes the data cables, forces all servos back to zero degrees, and resets the system safely to the start.
 
+---
+
+**Would you like me to help you create an architecture diagram or a wiring schematic to include alongside this README?**
