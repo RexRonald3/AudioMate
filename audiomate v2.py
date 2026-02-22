@@ -241,13 +241,19 @@ def main():
             if key == ord('c'):
                 speak_text("Capturing image. Processing.")
                 extracted_text_clean = preprocess_and_extract(frame)
-                print(f"Extracted: {extracted_text_clean}")
+                print(f"Extracted: '{extracted_text_clean}'")
 
-                if len(extracted_text_clean) > 1:
+                # .strip() ensures we don't accidentally accept a string of empty spaces
+                if len(extracted_text_clean.strip()) > 0:
                     system_state = "CAPTURED_WAITING"
                     speak_text("Capture successful. Press L for Learn Mode, or S for Speak Mode.")
                 else:
-                    speak_text("No text detected. Please try capturing again.")
+                    # NEW LOGIC: OCR Failed
+                    print("OCR Error: No readable text found.")
+                    speak_text("Text extraction failed.")
+                    
+                    # Force the system back to the absolute starting point
+                    safe_reset_system()
                     # Stay in IDLE state
 
         # --- STATE: CAPTURED_WAITING (Accepts 'L' or 'S') ---
